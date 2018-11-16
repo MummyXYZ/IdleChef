@@ -72,7 +72,7 @@ class ItemViewHolder(private val rowLayout: View) : ViewHolder(rowLayout), OnCli
                 
             }
         }
-    }
+    }sdfsdfsdfsdfsdsdf
 
     private fun upgradeIngredients(){
         Log.v("LoggedIVH", "upgradeIngredients $item")
