@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/ingr"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_margin="5dp"
+        android:orientation="horizontal"
+>
+    <ImageButton
+            android:id="@+id/ingrIcon"
+            android:src="@drawable/ic_launcher_background"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:contentDescription="@null"
+            android:layout_marginEnd="5dp"
+            android:background="@android:color/darker_gray"
+    />
+    <ProgressBar
+            android:id="@+id/ingrProgess"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:progressTint="@color/colorProgress"
+            android:progress="00"
+            android:layout_marginStart="38dp"
+            android:max="100"
+            android:rotation="-90"
+            style="?android:attr/progressBarStyleHorizontal"
+            />
+    <TextView
+            android:id="@+id/ingrName"
+            tools:text="Veggie"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@+id/ingrIcon"
+
+    />
+    <Button
+            android:id="@+id/ingrUpgrade"
+            tools:text="Upgrade For Value"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="@android:color/white"
+            android:textAlignment="textStart"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_toEndOf="@+id/ingrIcon"
+            android:layout_below="@+id/ingrName"
+            android:layout_marginTop="5dp"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+    />
+    <TextView
+            android:id="@+id/ingrLevel"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+    />
+    <TextView
+            android:id="@+id/ingrIncome"
+            tools:text="Income For Value"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+
+    />
+</RelativeLayout>

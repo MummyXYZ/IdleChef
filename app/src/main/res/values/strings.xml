@@ -1,0 +1,36 @@
+<resources>
+    <string name="app_name">Idle Chef</string>
+
+    <string name="cashPrefix">$</string>
+
+    <string name="Ingr1Name">Potatos</string>
+    <string name="Ingr2Name">Carrots</string>
+    <string name="Ingr3Name">Ingredient 3</string>
+    <string name="Ingr4Name">Ingredient 4</string>
+    <string name="Ingr5Name">Ingredient 5</string>
+    <string name="Ingr6Name">Ingredient 6</string>
+    <string name="Ingr7Name">Ingredient 7</string>
+    <string name="Ingr8Name">Ingredient 8</string>
+    <string name="Ingr9Name">Ingredient 9</string>
+    <string name="Ingr10Name">Ingredient 10</string>
+
+
+    <string name="ingr1Lvl">1</string>
+    <string name="ingr2Lvl">1</string>
+    <string name="ingr3Lvl">1</string>
+    <string name="ingr4Lvl">1</string>
+    <string name="ingr5Lvl">1</string>
+    <string name="ingr6Lvl">1</string>
+    <string name="ingr7Lvl">1</string>
+    <string name="ingr8Lvl">1</string>
+    <string name="ingr9Lvl">1</string>
+    <string name="ingr10Lvl">1</string>
+
+
+    <string name="ingr1Income">Income $1.00</string>
+    <string name="Ingr1Upgrade">Upgrade for $1</string>
+
+    <string name="ingr2Income">Income $1.00</string>
+    <string name="Ingr2Upgrade">Upgrade for $1</string>
+
+</resources>
