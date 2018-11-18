@@ -9,8 +9,9 @@ import com.mummyx.idlechef.DiffUtilCallback
 import com.mummyx.idlechef.models.Ingredient
 import com.mummyx.idlechef.ItemViewHolder
 import com.mummyx.idlechef.R
+import com.mummyx.idlechef.UserValues
 
-class IngredientAdapter(private val inflater: LayoutInflater) : RecyclerView.Adapter<ItemViewHolder>(){
+class IngredientAdapter(private val inflater: LayoutInflater) : RecyclerView.Adapter<ItemViewHolder>() {
 
     private var items: List<Ingredient> = emptyList()
 
@@ -22,32 +23,26 @@ class IngredientAdapter(private val inflater: LayoutInflater) : RecyclerView.Ada
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
         Log.v("LoggedIA", "onBindViewHolder 2 var")
-        holder.setItem(items[position])
+        holder.bind(this, items[position])
     }
 
-    override fun onBindViewHolder(holder: ItemViewHolder, position: Int, payloads: List<Any>) {
-        Log.v("LoggedIA", "onBindViewHolder 3 var")
-        if(!payloads.isEmpty()){
-            when (payloads[0]){
-                //Ingredient. -> {
-                //    bindViewHolder(holder, items[position].level)
-                //}
-            }
-        }
-        holder.updateItem(items[position])
+    override fun getItemCount(): Int {
+        val test = items.filter {it.unlocked || UserValues.cash >= it.unlockprc || it.seen}.size
+        return test
+
+        //var count = 0
+        //for(n in 0 until items.size){
+        //    if (items[n].unlocked || UserValues.cash >= items[n].unlockprc) count += 1
+        //}
+        //return count
     }
 
-    override fun getItemCount(): Int = items.size
-
-    fun updateItems(items: List<Ingredient>){
-        Log.v("LoggedIA","Diff Update")
+    fun updateItems(items: List<Ingredient>) {
+        Log.v("LoggedIA", "Diff Update")
         val diffCallback = DiffUtilCallback(this.items, items)
         val diffResult = DiffUtil.calculateDiff(diffCallback)
         this.items = items
 
         diffResult.dispatchUpdatesTo(this)
-
-
-        //this.items = items
     }
 }

@@ -1,6 +1,7 @@
 package com.mummyx.idlechef
 
 import android.support.v7.util.DiffUtil
+import com.mummyx.idlechef.models.Ingredient
 
 
 internal class DiffUtilCallback(

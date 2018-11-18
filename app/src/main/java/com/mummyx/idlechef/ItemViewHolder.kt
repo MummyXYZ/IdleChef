@@ -6,88 +6,107 @@ import android.view.View
 import android.widget.Button
 import android.widget.ImageView
 import android.view.View.OnClickListener
+import android.widget.ProgressBar
 import android.widget.TextView
-import com.mummyx.idlechef.R.layout.activity_main
+import com.mummyx.idlechef.adapters.IngredientAdapter
+import com.mummyx.idlechef.models.Ingredient
+import com.mummyx.idlechef.utilities.Util
 import kotlinx.android.synthetic.main.itemrow.view.*
 
 class ItemViewHolder(private val rowLayout: View) : ViewHolder(rowLayout), OnClickListener {
 
     private var item: Ingredient? = null
+    private lateinit var adapter: IngredientAdapter
 
     private var incomeText: TextView = rowLayout.findViewById(R.id.ingrIncome)
     private var levelText: TextView = rowLayout.findViewById(R.id.ingrLevel)
     private var nameText: TextView = rowLayout.findViewById(R.id.ingrName)
     private var upgradeButton: Button = rowLayout.findViewById(R.id.ingrUpgrade)
     private var ingrIcon: ImageView = rowLayout.findViewById(R.id.ingrIcon)
+    private var progressBar: ProgressBar = rowLayout.findViewById(R.id.ingrProgress)
 
 
-    init {
+    fun bind(adapter: IngredientAdapter, item: Ingredient) {
         Log.v("LoggedIVH", "Init $item")
-        render()
+        this.item = item
+        this.adapter = adapter
+        item.seen = true
         upgradeButton.setOnClickListener(this)
         ingrIcon.setOnClickListener(this)
+        UserValues.mainMoneyTV?.text = Util.ft(UserValues.cash)
+        render()
     }
 
-    override fun onClick(view: View?){
-        if (view == upgradeButton){
+    override fun onClick(view: View?) {
+        if (view == upgradeButton) {
             Log.v("LoggedIVH", "ingrUpgrade Clicked")
             upgradeIngredients()
-        }else if(view == ingrIcon){
+
+        } else if (view == ingrIcon) {
             Log.v("LoggedIVH", "ingrIcon Clicked")
             updateIncome()
         }
-        updateUpgrade()
+        adapter.notifyDataSetChanged()
     }
 
-    fun updateItem(item: Ingredient){
-        Log.v("LoggedIVH", "updateItem $item")
-        this.item = item
-        render()
-    }
-
-    fun setItem(item: Ingredient) {
-        Log.v("LoggedIVH", "setItem $item")
-        this.item = item
-        render()
-    }
-
-    private fun render(){
+    private fun render() {
         Log.v("LoggedIVH", "Render $item")
-        val item = this.item ?: return
-        nameText.text = item.name
-        incomeText.text = item.income.toString()
-        levelText.text = item.level.toString()
-        upgradeButton.text = item.price.toString()
-        updateUpgrade()
+        item?.let {
+            nameText.text = it.name
+            incomeText.text = Util.ft(it.income * it.incomeMulti)
+            levelText.text = it.level.toString()
+
+            var log = ((System.currentTimeMillis() - it.upgradeStart).toDouble() / it.upgradeTime.toDouble() * 100)
+            //var log =  System.currentTimeMillis() /  (it.upgradeStart + it.upgradeTime)
+
+            Log.v("Logged111","$log")
+
+            if (!it.unlocked) {
+                upgradeButton.text = "Unlock For - " + Util.ft(it.unlockprc)
+            } else {
+                upgradeButton.text = "Upgrade For - " + Util.ft(it.price * it.priceMulti)
+            }
+
+            if (!it.unlocked && UserValues.cash >= it.unlockprc) {
+                Log.v("Loggedhhh", "Update Upgrade ${it.name}")
+                rowLayout.ingrUpgrade.setBackgroundResource(R.drawable.ic_ingredient_unlock_affordable)
+            } else if (!it.unlocked) {
+                rowLayout.ingrUpgrade.setBackgroundResource(R.drawable.ic_ingredient_unlock_not_affordable)
+            } else if (it.unlocked && UserValues.cash >= it.price) {
+                rowLayout.ingrUpgrade.setBackgroundResource(R.drawable.ic_ingredient_upgrade_affordable)
+            } else if (it.unlocked) {
+                rowLayout.ingrUpgrade.setBackgroundResource(R.drawable.ic_ingredient_upgrade_not_affordable)
+            }
+        }
     }
 
     private fun updateIncome() {
         Log.v("LoggedIVH", "updateIncome $item")
         val item = this.item ?: return
+
+        if (item.upgradeStart == 0L) {
+            item.upgradeStart = System.currentTimeMillis()
+        }
         if (item.unlocked) {
-            UserValues.cash += (item.income * item.multi)
-            UserValues.mainMoneyTV?.text = Util.ft(UserValues.cash)
-            if(UserValues.ingredientsMap[IngredientType.CARROT]?.unlocked == false && UserValues.cash >= UserValues.ingredientsMap[IngredientType.CARROT]?.price ?: return)
-            {
-                
-            }
+            UserValues.cash += (item.income * item.incomeMulti)
+            Log.v("Loggedhhh", "right before")
         }
-    }sdfsdfsdfsdfsdsdf
+    }
 
-    private fun upgradeIngredients(){
+    private fun upgradeIngredients() {
         Log.v("LoggedIVH", "upgradeIngredients $item")
-    }
-
-    private fun updateUpgrade(){
-        with(rowLayout) {
-            if (UserValues.cash >= item?.price?: return) {
-                ingrUpgrade.setBackgroundResource(R.drawable.ic_ingredient_upgrade_affordable)
-            } else {
-                ingrUpgrade.setBackgroundResource(R.drawable.ic_ingredient_upgrade_not_affordable)
+        item?.let {
+            if (!it.unlocked && UserValues.cash >= it.unlockprc) {
+                UserValues.cash -= it.unlockprc
+                it.unlocked = true
+            } else if (it.unlocked && UserValues.cash >= it.price * it.priceMulti){
+                UserValues.cash -= it.price * it.priceMulti
+                it.priceMulti += 0.07
+                it.incomeMulti += 1
+                it.level += 1
             }
         }
     }
-
 
 
     /*fun bind(v: Ingredient) {

@@ -1,14 +1,17 @@
 package com.mummyx.idlechef.models
 
 open class Ingredient(
-    val name : String,
-    var level : Int,
-    var income : Double,
-    var incomeMulti : Double,
-    var price : Double,
-    var priceMulti : Double,
-    var unlocked : Boolean,
-    var unlockprc : Double
+    val name: String,
+    var level: Int,
+    var income: Double,
+    var incomeMulti: Double,
+    var price: Double,
+    var priceMulti: Double,
+    var unlocked: Boolean,
+    var unlockprc: Double,
+    var seen: Boolean,
+    var upgradeTime: Long,
+    var upgradeStart: Long = 0
 )
 
 object Supplier {
@@ -31,11 +34,15 @@ class Potato : Ingredient(
     1,
     // Base Income
     1.0,
+    // Income Multiplier (income * incomeMulti = Current Income)
     1.0,
     4.0,
     1.0,
     true,
-    0.0)
+    0.0,
+    true,
+    10000
+)
 
 class Carrot : Ingredient(
     // Name of Ingredient
@@ -53,7 +60,10 @@ class Carrot : Ingredient(
     // Has the Ingredient been purchased yet?
     false,
     // Price to purchase Ingredient
-    60.0)
+    60.0,
+    false,
+    2000
+)
 
 class Broccoli : Ingredient(
     // Name of Ingredient
@@ -71,7 +81,10 @@ class Broccoli : Ingredient(
     // Has the Ingredient been purchased yet?
     false,
     // Price to purchase Ingredient
-    720.0)
+    720.0,
+    false,
+    6000
+)
 
 class Apple : Ingredient(
     // Name of Ingredient
@@ -85,7 +98,10 @@ class Apple : Ingredient(
     9818.2,
     1.0,
     false,
-    8640.0)
+    8640.0,
+    false,
+    12000
+)
 
 class Pear : Ingredient(
     // Name of Ingredient
@@ -99,7 +115,10 @@ class Pear : Ingredient(
     119172.40,
     1.0,
     false,
-    103680.0)
+    103680.0,
+    false,
+    18000
+)
 
 class Strawberry : Ingredient(
     // Name of Ingredient
@@ -112,7 +131,10 @@ class Strawberry : Ingredient(
     1446697.70,
     1.0,
     false,
-    1244160.0)
+    1244160.0,
+    false,
+    96000
+)
 
 class Kiwi : Ingredient(
     // Name of Ingredient
@@ -125,7 +147,10 @@ class Kiwi : Ingredient(
     17360372.1,
     1.0,
     false,
-    14929920.0)
+    14929920.0,
+    false,
+    1536000
+)
 
 class Melon : Ingredient(
     // Name of Ingredient
@@ -138,9 +163,10 @@ class Melon : Ingredient(
     210775342.0,
     1.0,
     false,
-    179159040.0)
-
-
+    179159040.0,
+    false,
+    3072000
+)
 
 
 /*

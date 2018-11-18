@@ -1,14 +1,13 @@
 package com.mummyx.idlechef
 
 import android.widget.TextView
+import com.mummyx.idlechef.models.*
 
-class UserValues{
+class UserValues {
     companion object {
 
         //Player Cash
-        var cash:Double = 0.0
-
-        val checkpoints: IntArray = intArrayOf(10,25,50,100)
+        var cash: Double = 0.0
 
         var mainMoneyTV: TextView? = null
 
@@ -22,17 +21,6 @@ class UserValues{
             Pair(IngredientType.STRAWBERRY, Strawberry()),
             Pair(IngredientType.KIWI, Kiwi()),
             Pair(IngredientType.MELON, Melon())
-        )
-        //var ingredientRunning : BooleanArray = booleanArrayOf(false, false)
-        val ingredientsRunning = mutableMapOf(
-            Pair(IngredientType.POTATO, false),
-            Pair(IngredientType.CARROT, false),
-            Pair(IngredientType.BROCCOLI, false),
-            Pair(IngredientType.APPLE, false),
-            Pair(IngredientType.PEAR, false),
-            Pair(IngredientType.STRAWBERRY, false),
-            Pair(IngredientType.KIWI, false),
-            Pair(IngredientType.MELON, false)
         )
     }
 }
